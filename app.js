@@ -15,6 +15,8 @@ server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
 });
 
+app.use(express.static(__dirname + '/public'));
+
 var log = function (obj) {
     console.log(JSON.stringify(obj));
 };
