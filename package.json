@@ -1,0 +1,24 @@
+{
+  "name": "live-run",
+  "version": "1.0.0",
+  "description": "Live Run mobile app",
+  "main": "app.js",
+  "private": true,
+  "dependencies": {
+    "express": "4.13.4",
+    "socket.io":"1.3.5"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inepali/live-run.git"
+  },
+  "author": "iNepali",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/inepali/live-run/issues"
+  },
+  "homepage": "https://github.com/inepali/live-run#readme"
+}
