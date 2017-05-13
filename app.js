@@ -71,6 +71,7 @@ io.sockets.on('connection', function (socket) {
     //let when runner create room
     socket.on('CREATE_ROOM', function (room) {
         console.log(room);
+        room.createDate = new Date();
         rooms.push(room);
 
         console.log(rooms.length);
