@@ -12,6 +12,7 @@ var port = process.env.PORT || 3300;
 //start listening
 server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
+    log("Version 1.0.0");
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -24,6 +25,8 @@ io.sockets.on('connection', function (socket) {
     connections.push(socket.id);
 
     log('Connection started ' + socket.id + ', # of connections ' + connections.length);
+
+    log('Updating rooms to newly connected user');
     io.sockets.emit('UPDATE_ONLY_ROOMS', rooms);
     //io.sockets.connected[socket.id].emit('UPDATE_ONLY_ROOMS', rooms);
 
@@ -64,7 +67,8 @@ io.sockets.on('connection', function (socket) {
 
     //let when someone join room 
     socket.on('UPDATE_ROOMS', function () {
-        io.sockets.connected[socket.id].emit('UPDATE_ROOMS', rooms);
+        //io.sockets.connected[socket.id].emit('UPDATE_ROOMS', rooms);
+        io.sockets.emit('UPDATE_ROOMS', rooms);
         //io.sockets.to(player.room).emit('UPDATE_GAME', { players: players, thisPlayer: player, choiceCard: null });
     });
 
