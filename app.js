@@ -24,8 +24,8 @@ io.sockets.on('connection', function (socket) {
     connections.push(socket.id);
 
     log('Connection started ' + socket.id + ', # of connections ' + connections.length);
-    //io.sockets.emit('UPDATE_ONLY_ROOMS', rooms);
-    io.sockets.connected[socket.id].emit('UPDATE_ONLY_ROOMS', rooms);
+    io.sockets.emit('UPDATE_ONLY_ROOMS', rooms);
+    //io.sockets.connected[socket.id].emit('UPDATE_ONLY_ROOMS', rooms);
 
     socket.on('disconnect', function (data) {
         //log(connections);
