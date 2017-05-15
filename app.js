@@ -15,7 +15,7 @@ socket = socket.listen(server);
 //start listening
 server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
-    log("Version 1.0.6");
+    log("Version 1.0.7");
 });
 
 //app.use(express.static(__dirname + '/public'));
@@ -27,7 +27,7 @@ var log = function (obj) {
 
 socket.on('connection', function (conn) {
     connections.push(conn.id);
-    console.log(conn);
+   // console.log(conn);
 
     log('Connection started ' + conn.id + ', # of connections ' + connections.length);
 
