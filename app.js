@@ -2,22 +2,20 @@
 var connections = [];
 var rooms = [];
 
-
 var socket = require("socket.io");
 var http = require("http");
 var server = http.createServer();
+var port = process.env.PORT || 3900;
 
 socket = socket.listen(server);
 
 var express = require("express");
 var app = express();
 
-var port = process.env.PORT || 3300;
-
 //start listening
 server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
-    log("Version 1.0.4");
+    log("Version 1.0.5");
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -33,7 +31,7 @@ socket.on('connection', function (conn) {
     log('Connection started ' + socket.id + ', # of connections ' + connections.length);
 
     log('Updating rooms to newly connected user');
-    conn.emit('UPDATE_ONLY_ROOMS', rooms);
+    socket.emit('UPDATE_ONLY_ROOMS', rooms);
     //io.sockets.connected[socket.id].emit('UPDATE_ONLY_ROOMS', rooms);
 
     conn.on('disconnect', function (data) {
@@ -50,23 +48,23 @@ socket.on('connection', function (conn) {
 
     //broadcast message
     conn.on('SEND_MESSAGE', function (data) {
-        conn.emit('SEND_MESSAGE', { msg: data });
+        socket.emit('SEND_MESSAGE', { msg: data });
     });
 
     //let create room 
     conn.on('UPDATE_RUN', function (data) {
-        conn.emit('UPDATE_RUN', data);
+        socket.emit('UPDATE_RUN', data);
     });
 
      //when runner create a room 
     conn.on('START_RUN', function (data) {
-        conn.emit('START_RUN', data);
+        socket.emit('START_RUN', data);
         //io.sockets.to(player.room).emit('UPDATE_GAME', { players: players, thisPlayer: player, choiceCard: null });
     });
     
    //let when someone join room 
     conn.on('JOIN_ROOM', function (data) {
-        conn.emit('JOIN_ROOM', data);
+        socket.emit('JOIN_ROOM', data);
         //io.sockets.to(player.room).emit('UPDATE_GAME', { players: players, thisPlayer: player, choiceCard: null });
     });
 
@@ -74,7 +72,7 @@ socket.on('connection', function (conn) {
     //let when someone join room 
     conn.on('UPDATE_ROOMS', function () {
         //io.sockets.connected[socket.id].emit('UPDATE_ROOMS', rooms);
-        conn.emit('UPDATE_ROOMS', rooms);
+        socket.emit('UPDATE_ROOMS', rooms);
         //io.sockets.to(player.room).emit('UPDATE_GAME', { players: players, thisPlayer: player, choiceCard: null });
     });
 
@@ -86,7 +84,7 @@ socket.on('connection', function (conn) {
 
         console.log(rooms.length);
         
-        conn.emit('UPDATE_ROOMS', rooms);
+        socket.emit('UPDATE_ROOMS', rooms);
         
         //io.sockets.to(player.room).emit('UPDATE_GAME', { players: players, thisPlayer: player, choiceCard: null });
     });
