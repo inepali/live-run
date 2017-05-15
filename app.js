@@ -15,7 +15,7 @@ var app = express();
 //start listening
 server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
-    log("Version 1.0.5");
+    log("Version 1.0.6");
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -26,9 +26,10 @@ var log = function (obj) {
 };
 
 socket.on('connection', function (conn) {
-    connections.push(socket.id);
+    connections.push(conn.id);
+    console.log(conn);
 
-    log('Connection started ' + socket.id + ', # of connections ' + connections.length);
+    log('Connection started ' + conn.id + ', # of connections ' + connections.length);
 
     log('Updating rooms to newly connected user');
     socket.emit('UPDATE_ONLY_ROOMS', rooms);
@@ -37,12 +38,12 @@ socket.on('connection', function (conn) {
     conn.on('disconnect', function (data) {
         //log(connections);
         for (var i = 0; i < connections.length; i++) {
-            if (connections[i] == socket.id) {
+            if (connections[i] == conn.id) {
                 connections.splice(i, 1);
             }
         }
 
-        log('Connection lost ' + socket.id + ', # of connections ' + connections.length);
+        log('Connection lost ' + conn.id + ', # of connections ' + connections.length);
 
     });
 
