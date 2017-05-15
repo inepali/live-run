@@ -9,8 +9,8 @@ var port = process.env.PORT || 3900;
 
 socket = socket.listen(server);
 
-var express = require("express");
-var app = express();
+//var express = require("express");
+//var app = express();
 
 //start listening
 server.listen(port, function(){
@@ -18,7 +18,7 @@ server.listen(port, function(){
     log("Version 1.0.6");
 });
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 
 
 var log = function (obj) {
