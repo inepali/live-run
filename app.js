@@ -9,11 +9,9 @@ var server = http.createServer();
 
 socket = socket.listen(server);
 
-// var express = require("express");
-// var app = express();
+var express = require("express");
+var app = express();
 
-// var server = require("http").createServer(app);
-// var io = require("socket.io").listen(server);
 var port = process.env.PORT || 3300;
 
 //start listening
@@ -22,7 +20,8 @@ server.listen(port, function(){
     log("Version 1.0.4");
 });
 
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
+
 
 var log = function (obj) {
     console.log(JSON.stringify(obj));
