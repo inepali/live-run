@@ -2,17 +2,24 @@
 var connections = [];
 var rooms = [];
 
-var express = require("express");
-var app = express();
 
-var server = require("http").createServer(app);
-var io = require("socket.io").listen(server);
+var socket = require("socket.io");
+var http = require("http");
+var server = http.createServer();
+
+socket.listen(server);
+
+// var express = require("express");
+// var app = express();
+
+// var server = require("http").createServer(app);
+// var io = require("socket.io").listen(server);
 var port = process.env.PORT || 3300;
 
 //start listening
 server.listen(port, function(){
     log("Welcome Live Run socket.io server, server is running port " + port);
-    log("Version 1.0.2");
+    log("Version 1.0.3");
 });
 
 app.use(express.static(__dirname + '/public'));
